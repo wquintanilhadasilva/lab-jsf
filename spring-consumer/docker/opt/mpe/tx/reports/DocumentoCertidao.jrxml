@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DocumentoCertidao" language="groovy" pageWidth="595" pageHeight="842" columnWidth="454" leftMargin="85" rightMargin="56" topMargin="56" bottomMargin="56">
+	<parameter name="URL_BRASAO" class="java.io.InputStream"/>
+	<parameter name="MENSAGEM" class="java.lang.String"/>
+	<parameter name="ENDERECO" class="java.lang.String"/>
+	<field name="idProtocoloDocumento" class="java.lang.Long"/>
+	<field name="nomeArquivo" class="java.lang.String"/>
+	<field name="dataCriacaoDoc" class="java.util.Date"/>
+	<field name="resumo" class="java.lang.String"/>
+	<field name="simp" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="112" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="30" width="79" height="20" forecolor="#0020FF"/>
+				<textElement/>
+				<text><![CDATA[Documento ID -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="454" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO DO MARANHÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="65" width="454" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINISTÉRIO PÚBLICO]]></text>
+			</staticText>
+			<image>
+				<reportElement x="206" y="0" width="100" height="50"/>
+				<imageExpression class="java.io.InputStream"><![CDATA[$P{URL_BRASAO}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="79" y="30" width="104" height="20" forecolor="#0020FF"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{idProtocoloDocumento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="23" width="144" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROCEDIMENTO nº ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="144" y="23" width="310" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{simp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="22" width="454" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CERTIDÃO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="198" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="23" width="454" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="63" width="454" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tipo de Documento: "Áudio e/ou vídeo"]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="43" width="454" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nomeArquivo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="83" width="125" height="20"/>
+				<textElement/>
+				<text><![CDATA[Descrição do documento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="123" width="103" height="20"/>
+				<textElement/>
+				<text><![CDATA[Data da Assinatura :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="143" width="129" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atenção]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="163" width="454" height="31"/>
+				<textElement/>
+				<text><![CDATA[Por motivo técnico, este documento não pode ser adicionado à compilação selecionada pelo usuário. Todavia, seu conteúdo pode ser acessado nos “Visualização de Autos Eletrônicos”.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="103" width="454" height="20" forecolor="#000000"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{idProtocoloDocumento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="103" y="123" width="351" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{dataCriacaoDoc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="83" width="329" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{resumo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="354" y="34" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="6" width="454" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{MENSAGEM}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="16" width="454" height="3"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="24" width="454" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ENDERECO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

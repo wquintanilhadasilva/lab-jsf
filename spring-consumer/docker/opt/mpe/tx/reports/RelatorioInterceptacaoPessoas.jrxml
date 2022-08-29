@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioInterceptacaoTel" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.2100000000000037"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="IS_HTML" class="java.lang.Boolean" isForPrompting="false"/>
+	<parameter name="URL_BRASAO" class="java.io.InputStream" isForPrompting="false"/>
+	<parameter name="URL_RODAPE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="listaHistorico" class="java.util.List"/>
+	<field name="promotoria" class="java.lang.String"/>
+	<field name="promotor" class="java.lang.String"/>
+	<field name="qtdeProcedimentos" class="java.lang.Long"/>
+	<field name="qtdeEmail" class="java.lang.Long"/>
+	<field name="qtdeProcIpEmailIniciados" class="java.lang.Long"/>
+	<field name="qtdeIpEmailMonitorados" class="java.lang.Long"/>
+	<field name="qtdeProcIpEmailFindos" class="java.lang.Long"/>
+	<field name="qtdeProcIpEmailMonitFindos" class="java.lang.Long"/>
+	<field name="idPromotoria" class="java.lang.String"/>
+	<field name="qtdeProcPesq" class="java.lang.Long"/>
+	<field name="qtdeIpEmailPesq" class="java.lang.Long"/>
+	<field name="qtdePessoasMonit" class="java.lang.Long"/>
+	<field name="qtdePessoasMonitCont" class="java.lang.Long"/>
+	<variable name="qtdeProcedimentos_1" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeProcedimentos}]]></variableExpression>
+	</variable>
+	<variable name="qtdePessoas" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdePessoasMonit}]]></variableExpression>
+	</variable>
+	<variable name="qtdeProcIpEmailIniciados_1" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeProcIpEmailIniciados}]]></variableExpression>
+	</variable>
+	<variable name="qtdeIpEmailMonitorados_1" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeIpEmailMonitorados}]]></variableExpression>
+	</variable>
+	<variable name="qtdeProcIpEmailFindos_1" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeProcIpEmailFindos}]]></variableExpression>
+	</variable>
+	<variable name="qtdePessoasCont" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdePessoasMonitCont}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PROC" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeProcedimentos_1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PESSOAS" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdePessoas}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PROCINI" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeProcIpEmailIniciados_1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PROCMONIT" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeIpEmailMonitorados_1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PROCFINDOS" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeProcIpEmailFindos_1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PESSOAS_CONT" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdePessoasCont}]]></variableExpression>
+	</variable>
+	<variable name="qtdeProcPesq" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeProcPesq}]]></variableExpression>
+	</variable>
+	<variable name="qtdeIpEmailPesq" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeIpEmailPesq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_QTDEPROC_PESQ" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeProcPesq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_QTDEEMAIL_PESQ" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeIpEmailPesq}]]></variableExpression>
+	</variable>
+	<group name="PROMOTORIA">
+		<groupExpression><![CDATA[$F{promotoria}]]></groupExpression>
+		<groupHeader>
+			<band height="28">
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2" y="4" width="795" height="20" isPrintWhenDetailOverflows="true" backcolor="#999999"/>
+					<textElement lineSpacing="Single"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement mode="Transparent" x="2" y="4" width="790" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement verticalAlignment="Middle" lineSpacing="Single"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{promotoria}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="28">
+				<staticText>
+					<reportElement mode="Opaque" x="5" y="5" width="792" height="20" backcolor="#CCCCCC"/>
+					<textElement lineSpacing="Single"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="303" y="5" width="51" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Long"><![CDATA[$V{qtdePessoas}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="606" y="5" width="43" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Long"><![CDATA[$V{qtdePessoasCont}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="116">
+			<staticText>
+				<reportElement mode="Opaque" x="505" y="52" width="291" height="62" backcolor="#666666"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número de pessoas que permanecem sob investigação ao fim do período]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="213" y="52" width="291" height="62" backcolor="#666666"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número total de investigados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="52" width="210" height="62" backcolor="#666666"/>
+				<textElement lineSpacing="Single">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[  Promotoria
+         Promotor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="30" width="798" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Verdana" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dados dos Investigados]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="3" width="795" height="20" backcolor="#CCCCCC"/>
+				<textElement lineSpacing="Single"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="303" y="3" width="51" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{qtdePessoasMonit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="606" y="3" width="43" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{qtdePessoasMonitCont}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="3" width="187" height="20"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{promotor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="5" y="3" width="790" height="20" backcolor="#666666"/>
+				<textElement lineSpacing="Single"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="3" width="46" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="303" y="3" width="51" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_PESSOAS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="606" y="3" width="43" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$V{TOTAL_PESSOAS_CONT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

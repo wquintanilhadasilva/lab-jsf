@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioEntradaSaida" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="782" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="IS_HTML" class="java.lang.Boolean" isForPrompting="false"/>
+	<parameter name="URL_BRASAO" class="java.io.InputStream" isForPrompting="false"/>
+	<parameter name="URL_RODAPE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CURSOR" class="java.sql.ResultSet" isForPrompting="false"/>
+	<parameter name="LISTACOMARCA" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LISTAGABINETE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LISTAMEMBRO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="DATAINI" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATAFIM" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MEMBROS" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="COMARCAS" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="GABINETES" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/sampaio/git/simp/reports/entradasaida"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TIPORELATORIO" class="java.lang.String"/>
+	<parameter name="ENTRADAS" class="java.lang.String"/>
+	<parameter name="SAIDAS" class="java.lang.String"/>
+	<parameter name="SERVER_PATH" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="URL_DETALHAR_PROTOCOLO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="URL_MENU_SSO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="INSTANCIA" class="java.lang.String"/>
+	<parameter name="DESCRICAOATUACAO" class="java.lang.String"/>
+	<parameter name="ATUACAO" class="java.lang.String"/>
+	<parameter name="AREAS" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CLASSES" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ASSUNTOS" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LISTAAREA" class="java.lang.String"/>
+	<parameter name="LISTACLASSE" class="java.lang.String"/>
+	<parameter name="LISTAASSUNTO" class="java.lang.String"/>
+	<parameter name="TIPO" class="java.lang.String"/>
+	<parameter name="TIPO_PROTOCOLO" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select * from dual]]>
+	</queryString>
+	<field name="DUMMY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalEntRes" class="java.lang.Integer"/>
+	<variable name="totalSaiRes" class="java.lang.Integer"/>
+	<variable name="totalESDet" class="java.lang.Integer"/>
+	<variable name="totalEntradas" class="java.math.BigDecimal"/>
+	<variable name="totalSaidas" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="213" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-23" stretchType="RelativeToTallestObject" x="118" y="118" width="663" height="14" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{MEMBROS} == null || $P{MEMBROS}.equals("") ? "Todos" :$P{MEMBROS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="staticText-22" stretchType="RelativeToBandHeight" x="45" y="104" width="70" height="14" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["1".equals($P{INSTANCIA}) ? "Promotoria(s):" : "Procuradoria(s):"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-19" stretchType="RelativeToBandHeight" x="45" y="90" width="70" height="14" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Comarca(s):]]></text>
+			</staticText>
+			<textField>
+				<reportElement key="staticText-23" stretchType="RelativeToBandHeight" x="45" y="118" width="70" height="14" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["1".equals($P{INSTANCIA}) ? "Promotor(es):" : "Procurador(es):"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-20" stretchType="RelativeToBandHeight" x="45" y="132" width="70" height="14" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Período:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-19" stretchType="RelativeToTallestObject" x="118" y="90" width="663" height="14" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{COMARCAS} == null || $P{COMARCAS}.equals("") ? "Todos" : $P{COMARCAS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-22" stretchType="RelativeToTallestObject" x="118" y="104" width="663" height="14" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{GABINETES} == null || $P{GABINETES}.equals("") ? "Todos" : $P{GABINETES}]]></textFieldExpression>
+			</textField>
+			<image isUsingCache="true">
+				<reportElement key="brasao" mode="Transparent" x="47" y="1" width="57" height="48"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression class="java.io.InputStream"><![CDATA[$P{URL_BRASAO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="cabec-1" x="174" y="4" width="442" height="18" forecolor="#0033CC"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[MINISTÉRIO PÚBLICO DO ESTADO DO MARANHÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="cabec-2" x="174" y="25" width="442" height="15"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[PROCURADORIA GERAL DE JUSTIÇA - Sistema SIMP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="titulo" x="174" y="44" width="442" height="19" isPrintInFirstWholeBand="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Relatório de Entrada e Saída]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-47" mode="Opaque" x="1" y="73" width="781" height="14" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#CCCCCC"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Filtros]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-77" stretchType="RelativeToTallestObject" x="118" y="132" width="58" height="14" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DATAINI}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-72" x="177" y="132" width="11" height="14"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[a]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-78" stretchType="RelativeToTallestObject" x="190" y="132" width="591" height="14" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{DATAFIM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-20" stretchType="RelativeToBandHeight" x="45" y="146" width="70" height="14" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Atuação:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-28" stretchType="RelativeToTallestObject" x="118" y="146" width="663" height="14" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DESCRICAOATUACAO}== null || $P{DESCRICAOATUACAO}.equals("") ? "Todas" :$P{DESCRICAOATUACAO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-33" stretchType="RelativeToBandHeight" x="37" y="160" width="78" height="13" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Área(s):]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-34" stretchType="RelativeToTallestObject" x="118" y="173" width="663" height="13" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{CLASSES}== null || $P{CLASSES}.equals("") ? "Todas" :$P{CLASSES}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-31" positionType="Float" stretchType="RelativeToBandHeight" x="59" y="173" width="56" height="13" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Classe(s):]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-34" stretchType="RelativeToTallestObject" x="118" y="160" width="663" height="13" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{AREAS}== null || $P{AREAS}.equals("") ? "Todas" :$P{AREAS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-34" stretchType="RelativeToTallestObject" x="118" y="186" width="663" height="13" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ASSUNTOS}== null || $P{ASSUNTOS}.equals("") ? "Todos" :$P{ASSUNTOS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-37" positionType="Float" stretchType="RelativeToBandHeight" x="37" y="186" width="78" height="13" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Assunto(s):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-37" positionType="Float" stretchType="RelativeToBandHeight" x="59" y="199" width="56" height="13" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tipo:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-34" stretchType="RelativeToTallestObject" x="118" y="199" width="663" height="13" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TIPO_PROTOCOLO}== null || $P{TIPO_PROTOCOLO}.equals("") ? "Todos" :$P{TIPO_PROTOCOLO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="48" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement key="EntradaResumido" positionType="Float" isPrintRepeatedValues="false" x="1" y="1" width="780" height="16" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean($P{TIPORELATORIO}.equals("3") && $P{ENTRADAS} != null && $P{ENTRADAS} != "")]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="LISTACLASSE">
+					<subreportParameterExpression><![CDATA[$P{LISTACLASSE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAMEMBRO">
+					<subreportParameterExpression><![CDATA[$P{LISTAMEMBRO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TIPO">
+					<subreportParameterExpression><![CDATA[$P{TIPO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATAFIM">
+					<subreportParameterExpression><![CDATA[$P{DATAFIM}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTACOMARCA">
+					<subreportParameterExpression><![CDATA[$P{LISTACOMARCA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAAREA">
+					<subreportParameterExpression><![CDATA[$P{LISTAAREA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ENTRADAS">
+					<subreportParameterExpression><![CDATA[$P{ENTRADAS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAASSUNTO">
+					<subreportParameterExpression><![CDATA[$P{LISTAASSUNTO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAGABINETE">
+					<subreportParameterExpression><![CDATA[$P{LISTAGABINETE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TIPORELATORIO">
+					<subreportParameterExpression><![CDATA[$P{TIPORELATORIO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SAIDAS">
+					<subreportParameterExpression><![CDATA[$P{SAIDAS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATAINI">
+					<subreportParameterExpression><![CDATA[$P{DATAINI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INSTANCIA">
+					<subreportParameterExpression><![CDATA[$P{INSTANCIA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ATUACAO">
+					<subreportParameterExpression><![CDATA[$P{ATUACAO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="PAGE_NUMBER" toVariable="totalEntRes"/>
+				<returnValue subreportVariable="totalEntradaResumido" toVariable="totalEntradas"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "/RelatorioEntradaResumido.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="true">
+				<reportElement key="SaidaResumido" positionType="Float" isPrintRepeatedValues="false" x="1" y="17" width="781" height="16" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean($P{TIPORELATORIO}.equals("3") && $P{SAIDAS} != null && $P{SAIDAS} != "")]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="LISTACLASSE">
+					<subreportParameterExpression><![CDATA[$P{LISTACLASSE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAMEMBRO">
+					<subreportParameterExpression><![CDATA[$P{LISTAMEMBRO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TIPO">
+					<subreportParameterExpression><![CDATA[$P{TIPO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATAFIM">
+					<subreportParameterExpression><![CDATA[$P{DATAFIM}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTACOMARCA">
+					<subreportParameterExpression><![CDATA[$P{LISTACOMARCA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAAREA">
+					<subreportParameterExpression><![CDATA[$P{LISTAAREA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ENTRADAS">
+					<subreportParameterExpression><![CDATA[$P{ENTRADAS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAASSUNTO">
+					<subreportParameterExpression><![CDATA[$P{LISTAASSUNTO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAGABINETE">
+					<subreportParameterExpression><![CDATA[$P{LISTAGABINETE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SAIDAS">
+					<subreportParameterExpression><![CDATA[$P{SAIDAS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TIPORELATORIO">
+					<subreportParameterExpression><![CDATA[$P{TIPORELATORIO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATAINI">
+					<subreportParameterExpression><![CDATA[$P{DATAINI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INSTANCIA">
+					<subreportParameterExpression><![CDATA[$P{INSTANCIA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ATUACAO">
+					<subreportParameterExpression><![CDATA[$P{ATUACAO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="PAGE_NUMBER" toVariable="totalSaiRes"/>
+				<returnValue subreportVariable="totalSaidasResumido" toVariable="totalSaidas"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "/RelatorioSaidaResumido.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="true">
+				<reportElement key="Completo" positionType="Float" isPrintRepeatedValues="false" x="1" y="31" width="781" height="16" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean(($P{TIPORELATORIO}.equals("2") || $P{TIPORELATORIO}.equals("1")) && (($P{SAIDAS} != null && $P{SAIDAS} != "") || ($P{ENTRADAS} != null && $P{ENTRADAS} != "")))]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="LISTACLASSE">
+					<subreportParameterExpression><![CDATA[$P{LISTACLASSE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAMEMBRO">
+					<subreportParameterExpression><![CDATA[$P{LISTAMEMBRO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TIPO">
+					<subreportParameterExpression><![CDATA[$P{TIPO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATAFIM">
+					<subreportParameterExpression><![CDATA[$P{DATAFIM}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTACOMARCA">
+					<subreportParameterExpression><![CDATA[$P{LISTACOMARCA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAAREA">
+					<subreportParameterExpression><![CDATA[$P{LISTAAREA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ENTRADAS">
+					<subreportParameterExpression><![CDATA[$P{ENTRADAS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAASSUNTO">
+					<subreportParameterExpression><![CDATA[$P{LISTAASSUNTO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SERVER_PATH">
+					<subreportParameterExpression><![CDATA[$P{SERVER_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="URL_DETALHAR_PROTOCOLO">
+					<subreportParameterExpression><![CDATA[$P{URL_DETALHAR_PROTOCOLO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="URL_MENU_SSO">
+					<subreportParameterExpression><![CDATA[$P{URL_MENU_SSO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LISTAGABINETE">
+					<subreportParameterExpression><![CDATA[$P{LISTAGABINETE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TIPORELATORIO">
+					<subreportParameterExpression><![CDATA[$P{TIPORELATORIO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SAIDAS">
+					<subreportParameterExpression><![CDATA[$P{SAIDAS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATAINI">
+					<subreportParameterExpression><![CDATA[$P{DATAINI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="INSTANCIA">
+					<subreportParameterExpression><![CDATA[$P{INSTANCIA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ATUACAO">
+					<subreportParameterExpression><![CDATA[$P{ATUACAO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="PAGE_NUMBER" toVariable="totalESDet"/>
+				<returnValue subreportVariable="totalEntradaSub" toVariable="totalEntradas"/>
+				<returnValue subreportVariable="totalSaidaSub" toVariable="totalSaidas"/>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "/RelatorioEntradaSaida_Detalhe.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-35" mode="Opaque" x="1" y="27" width="781" height="18" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#006699"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Ministério Público do Estado do Maranhão]]></text>
+			</staticText>
+			<textField pattern="EEEEE, dd &apos;de&apos; MMMMM &apos;de&apos; yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-38" x="11" y="14" width="177" height="13" isRemoveLineWhenBlank="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField" x="717" y="7" width="45" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="441" y="7" width="276" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Página "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="78">
+			<textField pattern="EEEEE, dd &apos;de&apos; MMMMM &apos;de&apos; yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-38" x="10" y="47" width="177" height="13" isRemoveLineWhenBlank="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-35" mode="Opaque" x="1" y="60" width="781" height="18" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#006699"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Ministério Público do Estado do Maranhão]]></text>
+			</staticText>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField" positionType="Float" x="441" y="40" width="320" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Página "+$V{PAGE_NUMBER}+" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="230" y="2" width="551" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean($V{totalEntradas} != null &&
+    $V{totalEntradas}.intValue() >= 0 && $P{ENTRADAS} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{ENTRADAS}!=null && !$P{ENTRADAS}.equals("")) ?
+"Total de Entradas: " + $V{totalEntradas}.intValue() :
+""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="230" y="20" width="551" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[new Boolean($V{totalSaidas} != null &&
+    $V{totalSaidas}.intValue() >= 0 && $P{SAIDAS} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{SAIDAS}!=null && !$P{SAIDAS}.equals("")) ?
+"Total de Saídas: " + $V{totalSaidas}.intValue() :
+""]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="50">
+			<printWhenExpression><![CDATA[new Boolean(($V{totalEntRes} == new Integer(0) || $V{totalEntRes} == null) && ($V{totalSaiRes} == new Integer(0) || $V{totalSaiRes} == null) && ($V{totalESDet} == new Integer(0) || $V{totalESDet} == null))]]></printWhenExpression>
+			<staticText>
+				<reportElement key="staticText" stretchType="RelativeToBandHeight" x="190" y="17" width="463" height="20" forecolor="#FF0000">
+					<printWhenExpression><![CDATA[new Boolean(($V{totalEntRes} == new Integer(0) || $V{totalEntRes} == null) && ($V{totalSaiRes} == new Integer(0) || $V{totalSaiRes} == null) && ($V{totalESDet} == new Integer(0) || $V{totalESDet} == null))]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nenhuma Informação Encontrada!]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

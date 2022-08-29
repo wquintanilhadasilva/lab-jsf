@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioMariaPenhaGraficoTipoParte" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<parameter name="CURSOR" class="java.sql.ResultSet" isForPrompting="false"/>
+	<parameter name="DATAINI" class="java.lang.String"/>
+	<parameter name="DATAFIM" class="java.lang.String"/>
+	<parameter name="COMARCA" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LOCAL" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CLASSE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="AREA" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="IDCLASSE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="IDCOMARCA" class="java.lang.Long"/>
+	<parameter name="IDLOCAL" class="java.lang.Long"/>
+	<parameter name="IDAREA" class="java.lang.Long"/>
+	<parameter name="INSTANCIA" class="java.lang.Integer"/>
+	<parameter name="VCONDICAO" class="java.math.BigDecimal"/>
+	<queryString language="plsql">
+		<![CDATA[{CALL RELTXMARIAPENHAGRAFICO($P{IDCOMARCA},$P{IDLOCAL},$P{IDCLASSE},$P{DATAINI},$P{DATAFIM},$P{VCONDICAO},$P{INSTANCIA},$P{CURSOR})}]]>
+	</queryString>
+	<field name="GRUPO" class="java.lang.String"/>
+	<field name="TIPOPARTE" class="java.lang.String"/>
+	<field name="VALOR_GRUPO" class="java.lang.String"/>
+	<field name="TOTAL" class="java.math.BigDecimal"/>
+	<field name="TOTAL2" class="java.math.BigDecimal"/>
+	<variable name="qtde_VALORES" class="java.lang.Integer" resetType="Group" resetGroup="tipoParte" calculation="Count">
+		<variableExpression><![CDATA[$F{VALOR_GRUPO}]]></variableExpression>
+	</variable>
+	<group name="grupo">
+		<groupExpression><![CDATA[$F{GRUPO}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+	</group>
+	<group name="tipoParte">
+		<groupExpression><![CDATA[$F{TIPOPARTE}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="354" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean ($V{tipoParte_COUNT}.intValue()==1)]]></printWhenExpression>
+			<pie3DChart>
+				<chart evaluationTime="Group" evaluationGroup="tipoParte" renderType="draw" theme="aegean">
+					<reportElement mode="Transparent" x="0" y="0" width="553" height="354" isRemoveLineWhenBlank="true"/>
+					<chartTitle position="Top">
+						<font fontName="Arial" size="18" isBold="true" isItalic="false"/>
+						<titleExpression><![CDATA[$F{TIPOPARTE} + " - " + new String($F{GRUPO}).substring(3,$F{GRUPO}.length())]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle color="#FF0000">
+						<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom"/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Group" resetGroup="tipoParte"/>
+					<keyExpression><![CDATA[$F{VALOR_GRUPO}.length()>2?$F{VALOR_GRUPO}.substring(3,$F{VALOR_GRUPO}.length()):$F{VALOR_GRUPO}]]></keyExpression>
+					<valueExpression><![CDATA[$F{TOTAL}]]></valueExpression>
+				</pieDataset>
+				<pie3DPlot isCircular="false" labelFormat="{1} ({2})">
+					<plot>
+						<seriesColor seriesOrder="0" color="#990099"/>
+						<seriesColor seriesOrder="1" color="#C4852D"/>
+						<seriesColor seriesOrder="2" color="#0E9755"/>
+						<seriesColor seriesOrder="3" color="#273579"/>
+						<seriesColor seriesOrder="4" color="#D93A3B"/>
+						<seriesColor seriesOrder="5" color="#D5BF35"/>
+						<seriesColor seriesOrder="6" color="#179B9D"/>
+						<seriesColor seriesOrder="7" color="#4A2A74"/>
+						<seriesColor seriesOrder="8" color="#D9612C"/>
+						<seriesColor seriesOrder="9" color="#5A9C46"/>
+						<seriesColor seriesOrder="10" color="#02518F"/>
+						<seriesColor seriesOrder="11" color="#812572"/>
+						<seriesColor seriesOrder="12" color="#EC2528"/>
+						<seriesColor seriesOrder="13" color="#FAA61C"/>
+						<seriesColor seriesOrder="14" color="#64C29C"/>
+						<seriesColor seriesOrder="15" color="#204399"/>
+						<seriesColor seriesOrder="16" color="#F7A476"/>
+						<seriesColor seriesOrder="17" color="#74C045"/>
+						<seriesColor seriesOrder="18" color="#1667B2"/>
+						<seriesColor seriesOrder="19" color="#BA2025"/>
+					</plot>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

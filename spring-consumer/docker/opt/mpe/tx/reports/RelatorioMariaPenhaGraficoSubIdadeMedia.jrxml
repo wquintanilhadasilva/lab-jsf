@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioMariaPenhaGraficoSubIdadeMedia" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<parameter name="CURSOR" class="java.sql.ResultSet" isForPrompting="false"/>
+	<parameter name="DATAINI" class="java.lang.String"/>
+	<parameter name="DATAFIM" class="java.lang.String"/>
+	<parameter name="COMARCA" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LOCAL" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CLASSE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="AREA" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="IDCLASSE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="IDCOMARCA" class="java.lang.Long"/>
+	<parameter name="IDLOCAL" class="java.lang.Long"/>
+	<parameter name="IDAREA" class="java.lang.Long"/>
+	<parameter name="INSTANCIA" class="java.lang.Integer"/>
+	<parameter name="VCONDICAO" class="java.math.BigDecimal"/>
+	<queryString language="plsql">
+		<![CDATA[{CALL RELTXMARIAPENHAGRAFICO($P{IDCOMARCA},$P{IDLOCAL},$P{IDCLASSE},$P{DATAINI},$P{DATAFIM},$P{VCONDICAO},$P{INSTANCIA},$P{CURSOR})}]]>
+	</queryString>
+	<field name="TIPOPARTE" class="java.lang.String"/>
+	<field name="GRUPO" class="java.lang.String"/>
+	<field name="VALOR_GRUPO" class="java.lang.String"/>
+	<field name="TOTAL" class="java.math.BigDecimal"/>
+	<field name="TOTAL2" class="java.math.BigDecimal"/>
+	<variable name="totalTipoParte" class="java.math.BigDecimal" resetType="Group" resetGroup="grupo" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="grupo">
+		<groupExpression><![CDATA[$F{GRUPO}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="359" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean($F{TIPOPARTE}.equals("01-Agressores"))]]></printWhenExpression>
+			<barChart>
+				<chart theme="default.spring">
+					<reportElement x="280" y="5" width="280" height="354" isRemoveLineWhenBlank="true"/>
+					<chartTitle>
+						<titleExpression><![CDATA[new String("Quantidade")]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset resetType="Group" resetGroup="grupo"/>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{TIPOPARTE}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{TIPOPARTE}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{TOTAL}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true" isShowTickLabels="true" isShowTickMarks="true">
+					<plot/>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+					<categoryAxisFormat>
+						<axisFormat verticalTickLabels="true">
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat verticalTickLabels="false">
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<barChart>
+				<chart theme="default.spring">
+					<reportElement x="0" y="5" width="280" height="354"/>
+					<chartTitle>
+						<titleExpression><![CDATA[new String("Média de idades")]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset resetType="Group" resetGroup="grupo"/>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{TIPOPARTE}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{TIPOPARTE}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{TOTAL2}==null?new BigDecimal(0):$F{TOTAL2}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true" isShowTickLabels="true" isShowTickMarks="true">
+					<plot/>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+					<categoryAxisFormat>
+						<axisFormat verticalTickLabels="true">
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat verticalTickLabels="false">
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+	<noData>
+		<band height="354">
+			<staticText>
+				<reportElement key="staticText" stretchType="RelativeToBandHeight" x="30" y="149" width="463" height="20" forecolor="#FF0000"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nenhuma Informação Encontrada!]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

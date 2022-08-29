@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioAudiencia_protocolo" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="33"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="ProtocoloVO" class="br.gov.mt.mp.geap.procedimentos.ProtocoloVO"/>
+	<parameter name="listaProtocoloVO" class="java.util.List"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Workspace\\MPE_HOME\\tx\\reports\\protocolo\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numeroRegistro" class="java.lang.String"/>
+	<parameter name="segredoJustica" class="br.gov.mt.mp.geap.framework.util.BaseDominio.SimNao"/>
+	<parameter name="dataHoraEntrada" class="java.util.Date"/>
+	<parameter name="areaVO" class="br.gov.mt.mp.geap.tabelas.fluxo.AreaVO"/>
+	<parameter name="classeVO" class="br.gov.mt.mp.taxonomia.entity.ClasseVO"/>
+	<parameter name="promotorVO" class="br.gov.mt.mp.geap.tabelas.cadastro.PromotorVO"/>
+	<parameter name="promotoriaVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.LocalVO"/>
+	<parameter name="comarcaVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.ComarcaVO"/>
+	<parameter name="listaParteAssunto1" class="java.lang.String"/>
+	<parameter name="emailFuncionariosInteressadosProtocolo" class="java.lang.String"/>
+	<parameter name="resumo" class="java.lang.String"/>
+	<parameter name="listaProtocoloMovimentoVO" class="java.util.List"/>
+	<parameter name="localAtualVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.LocalVO"/>
+	<parameter name="usuarioRegistroVO" class="br.gov.mt.mp.mastiff.entity.UsuarioVO"/>
+	<parameter name="detentorAtualVO" class="br.gov.mt.mp.mastiff.entity.UsuarioVO"/>
+	<parameter name="prioridade" class="br.gov.mt.mp.geap.framework.util.BaseDominio.SimNao"/>
+	<parameter name="listaParte1" class="java.lang.String"/>
+	<parameter name="listaParte2" class="java.lang.String"/>
+	<parameter name="numeroProcesso" class="java.lang.String"/>
+	<parameter name="codigoApoloTJ" class="java.lang.String"/>
+	<parameter name="numeroInqueritoCRI" class="java.lang.String"/>
+	<parameter name="varaVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.LocalVO"/>
+	<parameter name="dataCri" class="java.util.Date"/>
+	<parameter name="localCRI" class="br.gov.mt.mp.geap.tabelas.auxiliares.BairroVO"/>
+	<parameter name="dataInstInqueritoTCO" class="java.util.Date"/>
+	<parameter name="cidadeCrime" class="br.gov.mt.mp.geap.tabelas.auxiliares.CidadeVO"/>
+	<parameter name="estabelecimentoVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.EstabelecimentoVO"/>
+	<parameter name="dataFato" class="java.util.Date"/>
+	<parameter name="ultimoProtocoloMovimento" class="br.gov.mt.mp.geap.procedimentos.protocolo.ProtocoloMovimentoVO"/>
+	<parameter name="localProtocoladoVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.LocalVO"/>
+	<parameter name="listaParteAssunto2" class="java.lang.String"/>
+	<parameter name="procuradorVO" class="br.gov.mt.mp.geap.tabelas.cadastro.ProcuradorVO"/>
+	<parameter name="procuradoriaVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.LocalVO"/>
+	<parameter name="desembargadorVO" class="br.gov.mt.mp.geap.tabelas.cadastro.DesembargadorVO"/>
+	<parameter name="numeroParecer" class="java.lang.String"/>
+	<parameter name="instancia" class="br.gov.mt.mp.geap.framework.util.BaseDominio.Instancia"/>
+	<parameter name="relatorNacoVO" class="br.gov.mt.mp.geap.tabelas.cadastro.DesembargadorVO"/>
+	<parameter name="listaTelefoneParte1" class="java.lang.String"/>
+	<parameter name="listaTelefoneParte2" class="java.lang.String"/>
+	<parameter name="tipoProtocolo" class="br.gov.mt.mp.geap.framework.util.BaseDominio.TipoProtocolo"/>
+	<field name="segredoJustica" class="br.gov.mt.mp.geap.framework.util.BaseDominio.SimNao">
+		<fieldDescription><![CDATA[segredoJustica]]></fieldDescription>
+	</field>
+	<field name="numeroRegistro" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroRegistro]]></fieldDescription>
+	</field>
+	<field name="dataHoraEntrada" class="java.util.Date">
+		<fieldDescription><![CDATA[dataHoraEntrada]]></fieldDescription>
+	</field>
+	<field name="areaVO" class="br.gov.mt.mp.geap.tabelas.fluxo.AreaVO">
+		<fieldDescription><![CDATA[areaVO]]></fieldDescription>
+	</field>
+	<field name="classeVO" class="br.gov.mt.mp.taxonomia.entity.ClasseVO">
+		<fieldDescription><![CDATA[classeVO]]></fieldDescription>
+	</field>
+	<field name="promotorVO" class="br.gov.mt.mp.geap.tabelas.cadastro.PromotorVO">
+		<fieldDescription><![CDATA[promotorVO]]></fieldDescription>
+	</field>
+	<field name="promotoriaVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.LocalVO">
+		<fieldDescription><![CDATA[promotoriaVO]]></fieldDescription>
+	</field>
+	<field name="comarcaVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.ComarcaVO">
+		<fieldDescription><![CDATA[comarcaVO]]></fieldDescription>
+	</field>
+	<field name="listaParteAssunto1" class="java.lang.String">
+		<fieldDescription><![CDATA[listaParteAssunto1]]></fieldDescription>
+	</field>
+	<field name="emailFuncionariosInteressadosProtocolo" class="java.lang.String">
+		<fieldDescription><![CDATA[emailFuncionariosInteressadosProtocolo]]></fieldDescription>
+	</field>
+	<field name="resumo" class="java.lang.String">
+		<fieldDescription><![CDATA[resumo]]></fieldDescription>
+	</field>
+	<field name="listaProtocoloMovimentoVO" class="java.util.List">
+		<fieldDescription><![CDATA[listaProtocoloMovimentoVO]]></fieldDescription>
+	</field>
+	<field name="localAtualVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.LocalVO">
+		<fieldDescription><![CDATA[localAtualVO]]></fieldDescription>
+	</field>
+	<field name="usuarioRegistroVO" class="br.gov.mt.mp.mastiff.entity.UsuarioVO">
+		<fieldDescription><![CDATA[usuarioRegistroVO]]></fieldDescription>
+	</field>
+	<field name="detentorAtualVO" class="br.gov.mt.mp.mastiff.entity.UsuarioVO">
+		<fieldDescription><![CDATA[detentorAtualVO]]></fieldDescription>
+	</field>
+	<field name="prioridade" class="br.gov.mt.mp.geap.framework.util.BaseDominio.SimNao">
+		<fieldDescription><![CDATA[prioridade]]></fieldDescription>
+	</field>
+	<field name="listaParte1" class="java.lang.String">
+		<fieldDescription><![CDATA[listaParte1]]></fieldDescription>
+	</field>
+	<field name="listaParte2" class="java.lang.String">
+		<fieldDescription><![CDATA[listaParte2]]></fieldDescription>
+	</field>
+	<field name="numeroProcesso" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroProcesso]]></fieldDescription>
+	</field>
+	<field name="codigoApoloTJ" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoApoloTJ]]></fieldDescription>
+	</field>
+	<field name="numeroInqueritoCRI" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroInqueritoCRI]]></fieldDescription>
+	</field>
+	<field name="varaVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.LocalVO">
+		<fieldDescription><![CDATA[varaVO]]></fieldDescription>
+	</field>
+	<field name="dataCri" class="java.util.Date">
+		<fieldDescription><![CDATA[dataCri]]></fieldDescription>
+	</field>
+	<field name="localCRI" class="br.gov.mt.mp.geap.tabelas.auxiliares.BairroVO">
+		<fieldDescription><![CDATA[localCRI]]></fieldDescription>
+	</field>
+	<field name="dataInstInqueritoTCO" class="java.util.Date">
+		<fieldDescription><![CDATA[dataInstInqueritoTCO]]></fieldDescription>
+	</field>
+	<field name="cidadeCrime" class="br.gov.mt.mp.geap.tabelas.auxiliares.CidadeVO">
+		<fieldDescription><![CDATA[cidadeCrime]]></fieldDescription>
+	</field>
+	<field name="estabelecimentoVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.EstabelecimentoVO">
+		<fieldDescription><![CDATA[estabelecimentoVO]]></fieldDescription>
+	</field>
+	<field name="dataFato" class="java.util.Date">
+		<fieldDescription><![CDATA[dataFato]]></fieldDescription>
+	</field>
+	<field name="ultimoProtocoloMovimento" class="br.gov.mt.mp.geap.procedimentos.protocolo.ProtocoloMovimentoVO">
+		<fieldDescription><![CDATA[ultimoProtocoloMovimento]]></fieldDescription>
+	</field>
+	<field name="localProtocoladoVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.LocalVO">
+		<fieldDescription><![CDATA[localProtocoladoVO]]></fieldDescription>
+	</field>
+	<field name="listaParteAssunto2" class="java.lang.String">
+		<fieldDescription><![CDATA[listaParteAssunto2]]></fieldDescription>
+	</field>
+	<field name="procuradorVO" class="br.gov.mt.mp.geap.tabelas.cadastro.ProcuradorVO">
+		<fieldDescription><![CDATA[procuradorVO]]></fieldDescription>
+	</field>
+	<field name="procuradoriaVO" class="br.gov.mt.mp.geap.tabelas.auxiliares.LocalVO">
+		<fieldDescription><![CDATA[procuradoriaVO]]></fieldDescription>
+	</field>
+	<field name="desembargadorVO" class="br.gov.mt.mp.geap.tabelas.cadastro.DesembargadorVO">
+		<fieldDescription><![CDATA[desembargadorVO]]></fieldDescription>
+	</field>
+	<field name="numeroParecer" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroParecer]]></fieldDescription>
+	</field>
+	<field name="instancia" class="br.gov.mt.mp.geap.framework.util.BaseDominio.Instancia">
+		<fieldDescription><![CDATA[instancia]]></fieldDescription>
+	</field>
+	<field name="relatorNacoVO" class="br.gov.mt.mp.geap.tabelas.cadastro.DesembargadorVO">
+		<fieldDescription><![CDATA[relatorNacoVO]]></fieldDescription>
+	</field>
+	<field name="listaTelefoneParte1" class="java.lang.String">
+		<fieldDescription><![CDATA[listaParte1]]></fieldDescription>
+	</field>
+	<field name="listaTelefoneParte2" class="java.lang.String">
+		<fieldDescription><![CDATA[listaParte2]]></fieldDescription>
+	</field>
+	<field name="tipoProtocolo" class="br.gov.mt.mp.geap.framework.util.BaseDominio.TipoProtocolo">
+		<fieldDescription><![CDATA[tipoProtocolo]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="343">
+			<subreport>
+				<reportElement x="0" y="3" width="555" height="338" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="desembargadorVO">
+					<subreportParameterExpression><![CDATA[$P{desembargadorVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="segredoJustica">
+					<subreportParameterExpression><![CDATA[$P{segredoJustica}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="relatorNacoVO">
+					<subreportParameterExpression><![CDATA[$P{relatorNacoVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numeroRegistro">
+					<subreportParameterExpression><![CDATA[$P{numeroRegistro}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="procuradorVO">
+					<subreportParameterExpression><![CDATA[$P{procuradorVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codigoApoloTJ">
+					<subreportParameterExpression><![CDATA[$P{codigoApoloTJ}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="estabelecimentoVO">
+					<subreportParameterExpression><![CDATA[$P{estabelecimentoVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="listaProtocoloMovimentoVO">
+					<subreportParameterExpression><![CDATA[$P{listaProtocoloMovimentoVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipoProtocolo">
+					<subreportParameterExpression><![CDATA[$P{tipoProtocolo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="promotorVO">
+					<subreportParameterExpression><![CDATA[$P{promotorVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="URL_MENU_SSO"/>
+				<subreportParameter name="URL_DETALHAR_PROTOCOLO"/>
+				<subreportParameter name="SERVER_PATH"/>
+				<subreportParameter name="URL_BRASAO"/>
+				<subreportParameter name="instancia">
+					<subreportParameterExpression><![CDATA[$P{instancia}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="usuarioRegistroVO">
+					<subreportParameterExpression><![CDATA[$P{usuarioRegistroVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="listaTelefoneParte1">
+					<subreportParameterExpression><![CDATA[$P{listaTelefoneParte1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="emailFuncionariosInteressadosProtocolo">
+					<subreportParameterExpression><![CDATA[$P{emailFuncionariosInteressadosProtocolo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numeroParecer">
+					<subreportParameterExpression><![CDATA[$P{numeroParecer}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="listaTelefoneParte2">
+					<subreportParameterExpression><![CDATA[$P{listaTelefoneParte2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numeroInqueritoCRI">
+					<subreportParameterExpression><![CDATA[$P{numeroInqueritoCRI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataFato">
+					<subreportParameterExpression><![CDATA[$P{dataFato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="prioridade">
+					<subreportParameterExpression><![CDATA[$P{prioridade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="localCRI">
+					<subreportParameterExpression><![CDATA[$P{localCRI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="detentorAtualVO">
+					<subreportParameterExpression><![CDATA[$P{detentorAtualVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="areaVO">
+					<subreportParameterExpression><![CDATA[$P{areaVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataCri">
+					<subreportParameterExpression><![CDATA[$P{dataCri}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="promotoriaVO">
+					<subreportParameterExpression><![CDATA[$P{promotoriaVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ultimoProtocoloMovimento">
+					<subreportParameterExpression><![CDATA[$P{ultimoProtocoloMovimento}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="resumo">
+					<subreportParameterExpression><![CDATA[$P{resumo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="classeVO">
+					<subreportParameterExpression><![CDATA[$P{classeVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="localProtocoladoVO">
+					<subreportParameterExpression><![CDATA[$P{localProtocoladoVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="varaVO">
+					<subreportParameterExpression><![CDATA[$P{varaVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cidadeCrime">
+					<subreportParameterExpression><![CDATA[$P{cidadeCrime}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="listaParteAssunto2">
+					<subreportParameterExpression><![CDATA[$P{listaParteAssunto2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<subreportParameter name="localAtualVO">
+					<subreportParameterExpression><![CDATA[$P{localAtualVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="procuradoriaVO">
+					<subreportParameterExpression><![CDATA[$P{procuradoriaVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="listaParteAssunto1">
+					<subreportParameterExpression><![CDATA[$P{listaParteAssunto1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="listaParte2">
+					<subreportParameterExpression><![CDATA[$P{listaParte2}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataHoraEntrada">
+					<subreportParameterExpression><![CDATA[$P{dataHoraEntrada}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="listaParte1">
+					<subreportParameterExpression><![CDATA[$P{listaParte1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="comarcaVO">
+					<subreportParameterExpression><![CDATA[$P{comarcaVO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numeroProcesso">
+					<subreportParameterExpression><![CDATA[$P{numeroProcesso}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataInstInqueritoTCO">
+					<subreportParameterExpression><![CDATA[$P{dataInstInqueritoTCO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "/ProtocoloPdf_Corpo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="81" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="81" isPrintWhenDetailOverflows="true"/>
+				<dataSourceExpression><![CDATA[new br.gov.mt.mp.util.RelatorioDataSource($P{listaProtocoloMovimentoVO}, br.gov.mt.mp.geap.procedimentos.protocolo.ProtocoloMovimentoVO.class)]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "/ProtocoloPdf_Movimentos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioInterceptacaoTel" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.2100000000000037"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="IS_HTML" class="java.lang.Boolean" isForPrompting="false"/>
+	<parameter name="URL_BRASAO" class="java.io.InputStream" isForPrompting="false"/>
+	<parameter name="URL_RODAPE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="listaHistorico" class="java.util.List"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\opt\\build\\reports\\tx\\reports\\protocolo\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="promotoria" class="java.lang.String"/>
+	<field name="promotor" class="java.lang.String"/>
+	<field name="qtdeProcedimentos" class="java.lang.Long"/>
+	<field name="qtdeEmail" class="java.lang.Long"/>
+	<field name="qtdeProcIpEmailIniciados" class="java.lang.Long"/>
+	<field name="qtdeIpEmailMonitorados" class="java.lang.Long"/>
+	<field name="qtdeProcIpEmailFindos" class="java.lang.Long"/>
+	<field name="qtdeProcIpEmailMonitFindos" class="java.lang.Long"/>
+	<field name="idPromotoria" class="java.lang.String"/>
+	<field name="qtdeProcPesq" class="java.lang.Long"/>
+	<field name="qtdeIpEmailPesq" class="java.lang.Long"/>
+	<field name="listaHistorico" class="java.util.List"/>
+	<variable name="qtdeProcedimentos_1" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeProcedimentos}]]></variableExpression>
+	</variable>
+	<variable name="qtdeEmail_1" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeEmail}]]></variableExpression>
+	</variable>
+	<variable name="qtdeProcIpEmailIniciados_1" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeProcIpEmailIniciados}]]></variableExpression>
+	</variable>
+	<variable name="qtdeIpEmailMonitorados_1" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeIpEmailMonitorados}]]></variableExpression>
+	</variable>
+	<variable name="qtdeProcIpEmailFindos_1" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeProcIpEmailFindos}]]></variableExpression>
+	</variable>
+	<variable name="qtdeProcIpEmailMonitFindos_1" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeProcIpEmailMonitFindos}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PROC" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeProcedimentos_1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_IPEMAIL" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeEmail_1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PROCINI" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeProcIpEmailIniciados_1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PROCMONIT" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeIpEmailMonitorados_1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PROCFINDOS" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeProcIpEmailFindos_1}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PROCMONITFINDOS" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeProcIpEmailMonitFindos_1}]]></variableExpression>
+	</variable>
+	<variable name="qtdeProcPesq" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeProcPesq}]]></variableExpression>
+	</variable>
+	<variable name="qtdeIpEmailPesq" class="java.lang.Long" resetType="Group" resetGroup="PROMOTORIA" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtdeIpEmailPesq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_QTDEPROC_PESQ" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeProcPesq}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_QTDEEMAIL_PESQ" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$V{qtdeIpEmailPesq}]]></variableExpression>
+	</variable>
+	<group name="PROMOTORIA">
+		<groupExpression><![CDATA[$F{promotoria}]]></groupExpression>
+		<groupHeader>
+			<band height="28">
+				<staticText>
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2" y="4" width="795" height="20" isPrintWhenDetailOverflows="true" backcolor="#999999"/>
+					<textElement lineSpacing="Single"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement mode="Transparent" x="2" y="4" width="790" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement verticalAlignment="Middle" lineSpacing="Single"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{promotoria}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="28">
+				<staticText>
+					<reportElement mode="Opaque" x="5" y="5" width="792" height="20" backcolor="#CCCCCC"/>
+					<textElement lineSpacing="Single"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="216" y="5" width="59" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Long"><![CDATA[$V{qtdeProcedimentos_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="303" y="5" width="51" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Long"><![CDATA[$V{qtdeEmail_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="402" y="5" width="42" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Long"><![CDATA[$V{qtdeProcIpEmailIniciados_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="469" y="5" width="42" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Long"><![CDATA[$V{qtdeIpEmailMonitorados_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="536" y="5" width="43" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Long"><![CDATA[$V{qtdeProcIpEmailFindos_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="606" y="5" width="43" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Long"><![CDATA[$V{qtdeProcIpEmailMonitFindos_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="675" y="5" width="44" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Long"><![CDATA[$V{qtdeProcPesq}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="748" y="5" width="44" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Long"><![CDATA[$V{qtdeIpEmailPesq}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="116">
+			<staticText>
+				<reportElement mode="Opaque" x="390" y="52" width="272" height="62" backcolor="#666666"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Período Pesquisado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="392" y="65" width="65" height="40"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Quantidade de
+procedimentos
+iniciados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="595" y="65" width="65" height="47"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Quantidade de
+endereços eletrônicos
+iniciados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="207" y="52" width="182" height="62" backcolor="#666666"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remanecentes do Período Anterior]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="52" width="204" height="62" backcolor="#666666"/>
+				<textElement lineSpacing="Single">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[  Promotoria
+         Promotor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="30" width="798" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Verdana" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Interceptações Telemática]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="65" width="72" height="47"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Quantidade de
+endereços eletrônicos
+Monitorados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="65" width="65" height="35"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Quantidade de
+Procedimentos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="65" width="65" height="47"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Quantidade de
+endereços eletrônicos
+monitorados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="527" y="65" width="65" height="40"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Quantidade de
+procedimentos
+findos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="663" y="53" width="137" height="61" backcolor="#666666"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Em Trâmite]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="734" y="65" width="65" height="40" backcolor="#666666"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Quantidade de
+Telefones
+Monitorados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="665" y="65" width="65" height="40" backcolor="#666666"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Quantidade de
+Procedimentos]]></text>
+			</staticText>
+			<line>
+				<reportElement x="288" y="67" width="1" height="40" forecolor="#FFFFFF"/>
+			</line>
+			<line>
+				<reportElement x="458" y="67" width="1" height="40" forecolor="#FFFFFF"/>
+			</line>
+			<line>
+				<reportElement x="525" y="67" width="1" height="40" forecolor="#FFFFFF"/>
+			</line>
+			<line>
+				<reportElement x="594" y="67" width="1" height="40" forecolor="#FFFFFF"/>
+			</line>
+			<line>
+				<reportElement x="732" y="67" width="1" height="40" forecolor="#FFFFFF"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="3" width="795" height="20" backcolor="#CCCCCC"/>
+				<textElement lineSpacing="Single"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="216" y="3" width="59" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{qtdeProcedimentos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="3" width="51" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{qtdeEmail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="3" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{qtdeProcIpEmailIniciados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="469" y="3" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{qtdeIpEmailMonitorados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="536" y="3" width="43" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{qtdeProcIpEmailFindos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="606" y="3" width="43" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{qtdeProcIpEmailMonitFindos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="3" width="187" height="20"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{promotor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="675" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{qtdeProcPesq}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="748" y="3" width="47" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{qtdeIpEmailPesq}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="5" y="3" width="790" height="20" backcolor="#666666"/>
+				<textElement lineSpacing="Single"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="216" y="3" width="59" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$V{TOTAL_PROC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="156" y="3" width="46" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Verdana" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="303" y="3" width="51" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_IPEMAIL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="3" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{TOTAL_PROCINI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="469" y="3" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$V{TOTAL_PROCMONIT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="536" y="3" width="43" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$V{TOTAL_PROCFINDOS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="606" y="3" width="43" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$V{TOTAL_PROCMONITFINDOS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="675" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$V{TOTAL_QTDEPROC_PESQ}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="748" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$V{TOTAL_QTDEEMAIL_PESQ}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="2" y="29" width="798" height="40"/>
+				<subreportParameter name="URL_RODAPE">
+					<subreportParameterExpression><![CDATA[$P{URL_RODAPE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new br.gov.mt.mp.util.RelatorioDataSource($F{listaHistorico}, br.gov.mt.mp.taxonomia.entity.HistoricoVO.class)]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "/RelatorioInterceptacaoPessoas.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="25" width="100" height="1"/>
+			</break>
+		</band>
+	</summary>
+</jasperReport>
