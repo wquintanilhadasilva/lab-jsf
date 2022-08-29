@@ -7,14 +7,12 @@ import lombok.extern.log4j.Log4j2;
 import org.pgjma.spring.consumer.domain.enums.StatusEnum;
 import org.pgjma.spring.consumer.domain.utils.PdfUtil;
 import org.pgjma.spring.consumer.dto.StatusResponse;
-import org.pgjma.spring.consumer.service.ConsumerService;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-//import javax.transaction.Transactional;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,7 +20,7 @@ import java.nio.file.Paths;
 @Service
 //@Transactional
 @Log4j2
-public class ConsumerServiceImpl implements ConsumerService {
+public class ConsumerServiceImpl {
 
     public StatusResponse obterStatusProcessamento(String id) throws IOException {
         String fileName = criarNomeArquivoStatus(id);
@@ -37,14 +35,13 @@ public class ConsumerServiceImpl implements ConsumerService {
         return new StatusResponse(id, status);
     }
 
-    public Resource download(String id) throws IOException {
+    public InputStream download(String id) throws IOException {
         String fileName = id + ".pdf";
         checkFile(fileName);
         try {
             StatusResponse statusResponse = this.obterStatusProcessamento(id);
             if (statusResponse.getStatusEnum() == StatusEnum.CONCLUIDO) {
-                Resource resource = this.loadFileAsResource(id);
-                return resource;
+                return this.loadFileAsResource(id);
             } else {
                 throw new FileNotFoundException("File not found: " + fileName);
             }
@@ -73,13 +70,15 @@ public class ConsumerServiceImpl implements ConsumerService {
         }
     }
 
-    private Resource loadFileAsResource(String id) throws FileNotFoundException {
+    private InputStream loadFileAsResource(String id) throws FileNotFoundException {
         String fileName = PdfUtil.MPE_TEMP_DIR + "/" + id + ".pdf";
         try {
-            Path filePath = Paths.get(fileName);
-            byte[] data = Files.readAllBytes(filePath.toAbsolutePath());
-            Resource resource = new ByteArrayResource(data);
-            return resource;
+//            Path filePath = Paths.get(fileName);
+            InputStream file = new FileInputStream(fileName);
+            return file;
+//            byte[] data = Files.readAllBytes(filePath.toAbsolutePath());
+//            Resource resource = new ByteArrayResource(data);
+//            return resource;
         } catch (IOException e) {
             throw new FileNotFoundException("File not found: " + fileName);
         }
