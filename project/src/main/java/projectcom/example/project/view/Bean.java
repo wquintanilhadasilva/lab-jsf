@@ -3,7 +3,10 @@ package projectcom.example.project.view;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
@@ -24,6 +27,17 @@ public class Bean {
 
 	private String input;
 	private String output;
+	private String status;
+	
+	private String id = "teste";
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public void submit() throws IOException {
 		output = "Hello World! You have typed: " + input;
@@ -82,7 +96,7 @@ public class Bean {
 
 		OutputStream responseOutputStream = response.getOutputStream();
 		
-		String id = "teste";
+		
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet("http://localhost:9532/arquivos/" + id);
         try {
@@ -117,5 +131,38 @@ public class Bean {
         }
         
 	}
+	
+	public void consultar() {
+		status = "Consultar status";
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet("http://localhost:9532/arquivos/status/" + id);
+        httpGet.setHeader("Content-type", "application/json");
+        try {
+            httpGet.getRequestLine();
+            HttpResponse response = httpClient.execute(httpGet);
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                InputStream is = response.getEntity().getContent();
+                int bufferSize = 1024;
+                char[] buffer = new char[bufferSize];
+                StringBuilder out = new StringBuilder();
+                Reader in = new InputStreamReader(is, StandardCharsets.UTF_8);
+                for (int numRead; (numRead = in.read(buffer, 0, buffer.length)) > 0; ) {
+                    out.append(buffer, 0, numRead);
+                }
+                status = out.toString();
+                in.close();
+                is.close();
+            } else {
+                response.getEntity().getContent().close();
+                status = response.getStatusLine().getReasonPhrase();
+            }
+            return;
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        status = "ERRO";
+    }
 
 }

@@ -73,9 +73,9 @@ public class ConsumerServiceImpl {
     private InputStream loadFileAsResource(String id) throws FileNotFoundException {
         String fileName = PdfUtil.MPE_TEMP_DIR + "/" + id + ".pdf";
         try {
-//            Path filePath = Paths.get(fileName);
             InputStream file = new FileInputStream(fileName);
             return file;
+//            Path filePath = Paths.get(fileName);
 //            byte[] data = Files.readAllBytes(filePath.toAbsolutePath());
 //            Resource resource = new ByteArrayResource(data);
 //            return resource;

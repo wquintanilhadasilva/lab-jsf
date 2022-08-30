@@ -29,6 +29,13 @@
 			action="#{bean.getRemoteFile()}" value="Remote">
 		</h:commandButton>
 	</h:form>
+	
+	<h:form>
+		<h:commandButton id="cmdDownload"
+			action="#{bean.consultar()}" value="Consultar">
+		</h:commandButton>
+		<h:outputText id="output" value="#{bean.status}" />
+	</h:form>
 
 </h:body>
 </html>
